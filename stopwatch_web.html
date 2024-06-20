@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <style>
+  
+  <!--background colour-->
+      body {
+          background-color: lightblue
+      }
+
+  <!--table formatting for border and text--> 
+      table, td, tr{
+          border-collapse: collapse;
+          border:2px solid black;
+          text-align: center
+      }
+
+  <!--button formmating for size and font-->
+      button {
+          height: 40px;
+          width: 100px;
+          font-size: 15pt;
+      }
+
+  <!--time font size-->
+      #time {
+          font-size: 60px
+      }
+
+  </style>
+  <title>Stopwatch</title>
+  <script>
+  
+<!--set variable for stopwath and stopwatch status-->
+      var watch = 0;
+      var watch_start = false;
+
+<!--function for start button to start stopwatch and set status-->
+      function start_watch() {
+          if (watch_start == false) {
+              clock = setInterval(startWatch,1000);
+              watch_start = true;
+              return clock;
+          }
+    
+      }
+
+<!--function for start button to stop stopwatch and change status-->
+      function stop_watch() {
+          if (watch_start == true) {
+              clearInterval(clock);
+              watch_start = false;
+          }
+      }
+
+<!--function to reset stopwatch and set to zero-->
+      function reset() {
+          clearInterval(clock);
+          document.getElementById("watchTime").innerHTML = "00:00:00";
+          watch = 0;
+      }
+
+<!--function counts up stopwatch and converts counter to hours, minutes and seconds and write to html-->
+      function startWatch() {
+          watch++;
+          var hour = Math.floor(watch/3600);
+          var min = Math.floor((watch % 3600)/60);
+          var sec = watch % 60;
+    
+          var strHour = String(hour).padStart(2,'0');
+          var strMin = String(min).padStart(2,'0');
+          var strSec = String(sec).padStart(2,'0');
+          var timeStr = strHour + ":" + strMin + ":" + strSec;
+          document.getElementById("watchTime").innerHTML = timeStr;
+      }
+  
+  </script>
+</head>
+<body>
+  
+  <!--table for time and buttons-->
+  <table
+    align="center"
+    width = 250px
+    >
+    </tr>
+    <tr>
+      <!--container for stopwatch time snd formatting-->
+      <td
+        id="time"
+        height = 150px;
+        colspan="2";
+        align="center";
+        width = 250px;
+        text-align = "center";
+        >
+        <div id="watchTime">00:00:00</div>
+      </td>
+    </tr>
+    <tr>
+      <!--button to start stopwatch-->
+      <td align="center";
+        height=50px
+        ><button
+          onclick = "start_watch()"
+          >Start</button></td>
+      
+      <!--button to stop stopwatch-->
+      <td align="center";
+        height=50px
+        ><button
+          onclick = "stop_watch()"
+          >Stop</button></td>
+    </tr>
+    <tr>
+      <!--button to reset stopwatch-->
+      <td
+        colspan="2";
+        align ="center";
+        height=50px>
+        <button
+          onclick= "reset()">
+        Reset</button>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
